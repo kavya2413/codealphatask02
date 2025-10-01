@@ -1,0 +1,69 @@
+package task2;
+
+	
+	import java.util.HashMap;
+	import java.util.Map;
+	import java.util.Scanner;
+
+	public class task2 {
+
+	    // The knowledge base for rule-based answers (simplest form)
+	    private static final Map<String, String> knowledgeBase = new HashMap<>();
+
+	    static {
+	        // Populate the knowledge base with simplified FAQs and rules
+	        knowledgeBase.put("hello", "Hi there! How can I help you with your query today?");
+	        knowledgeBase.put("hi", "Hello! Ask me anything about our frequently asked questions.");
+	        knowledgeBase.put("how are you", "I'm a computer program, but I'm operating perfectly! What's on your mind?");
+	        knowledgeBase.put("what is nlp", "NLP stands for Natural Language Processing. It helps computers understand human language.");
+	        knowledgeBase.put("faq", "I can answer questions about general topics, common issues, and service details. Try asking 'what are your operating hours'.");
+	        knowledgeBase.put("thanks", "You're welcome! Feel free to ask another question.");
+	        knowledgeBase.put("bye", "Goodbye! Have a great day.");
+	    }
+
+	    /**
+	     * Processes the user's input and returns a response.
+	     * This simulates the core 'rule-based answer' logic.
+	     * @param input The user's text input.
+	     * @return The bot's response.
+	     */
+	    private static String getResponse(String input) {
+	        // Preprocess the input: convert to lower case and trim whitespace
+	        String processedInput = input.toLowerCase().trim();
+
+	        // Check for direct matches in the knowledge base
+	        for (Map.Entry<String, String> entry : knowledgeBase.entrySet()) {
+	            // A simple check if the input CONTAINS the key
+	            // For true NLP, you'd use tokenization, stemming, intent recognition, etc.
+	            if (processedInput.contains(entry.getKey())) {
+	                return entry.getValue();
+	            }
+	        }
+
+	        // Default fallback response
+	        return "I'm sorry, I don't have an answer for that frequently asked question. Please try rephrasing.";
+	    }
+
+	    public static void main(String[] args) {
+	        System.out.println("🤖 Chatbot initialized. Type 'bye' to exit.");
+	        Scanner scanner = new Scanner(System.in);
+
+	        // Main interaction loop
+	        while (true) {
+	            System.out.print("You: ");
+	            String userInput = scanner.nextLine();
+
+	            if (userInput.toLowerCase().contains("bye")) {
+	                System.out.println("Bot: Goodbye! Have a great day.");
+	                break;
+	            }
+
+	            String response = getResponse(userInput);
+	            System.out.println("Bot: " + response);
+	        }
+
+	        scanner.close();
+	    }
+	}
+
+
